@@ -136,4 +136,5 @@ const server = http.createServer(async (req, res) => {
   } catch { res.writeHead(404); res.end('Página não encontrada'); }
 });
 
-server.listen(PORT, () => console.log(`Painel de Tarefas disponível em http://localhost:${PORT}${configured ? '' : ' (modo demonstração local)'}`));
+server.listen(PORT, '127.0.0.1', () => console.log(`Painel de Tarefas disponível em http://localhost:${PORT}${configured ? '' : ' (modo demonstração local)'}`));
+
