@@ -1,0 +1,8 @@
+{
+  "name": "fluxo-painel-tarefas",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Painel de tarefas com Supabase e cache Redis via Upstash REST",
+  "scripts": { "start": "node app.mjs" },
+  "engines": { "node": ">=20" }
+}
