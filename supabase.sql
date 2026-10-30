@@ -1,5 +1,5 @@
 -- Tabela usada pelo backend do projeto Fluxo.
-create table public.tarefas (
+create table if not exists public.tarefas (
   id uuid primary key default gen_random_uuid(),
   titulo text not null check (char_length(titulo) between 1 and 120),
   descricao text not null default '' check (char_length(descricao) <= 500),
@@ -7,7 +7,7 @@ create table public.tarefas (
   created_at timestamptz not null default now()
 );
 
-create index tarefas_created_at_idx on public.tarefas (created_at desc);
+create index if not exists tarefas_created_at_idx on public.tarefas (created_at desc);
 
 alter table public.tarefas enable row level security;
 
