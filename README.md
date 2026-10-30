@@ -33,9 +33,9 @@ Sem `.env`, o servidor abre no modo demonstração local: dá para navegar na te
 
 ## Configuração do Supabase
 
-Crie um projeto no Supabase e copie a URL do projeto e a chave `service_role` para `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY`. Execute `supabase.sql` no SQL Editor. O servidor consulta e modifica `public.tarefas` pela API REST do Supabase.
+O projeto Supabase deste trabalho já está criado e a tabela `public.tarefas` já foi aplicada. A URL do projeto está preenchida em `.env.example`. No painel, em **Settings > API Keys**, crie uma chave secreta `sb_secret_...` e coloque-a em `SUPABASE_SECRET_KEY` no `.env` local. O servidor consulta e modifica `public.tarefas` pela API REST.
 
-**Segurança:** a chave `service_role` ignora as políticas RLS e só deve ficar no `.env` do servidor, nunca no JavaScript do navegador nem no GitHub. O `.gitignore` já exclui `.env`. Para uma publicação real, acrescente autenticação e políticas RLS associadas a cada usuário.
+**Segurança:** a chave secreta do Supabase tem acesso privilegiado e ignora RLS. Ela só deve ficar no `.env` do servidor, nunca no JavaScript do navegador nem no GitHub. O servidor local escuta apenas em `127.0.0.1` e o `.gitignore` exclui `.env`. Para publicação pública, acrescente autenticação e políticas RLS por usuário antes de hospedar o servidor.
 
 ## Configuração do Redis
 
