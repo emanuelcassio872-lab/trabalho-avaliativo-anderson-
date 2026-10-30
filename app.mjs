@@ -21,7 +21,8 @@ await loadEnvironment();
 
 const PORT = Number(process.env.PORT || 3000);
 const SUPABASE_URL = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const SUPABASE_KEY = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const USE_LEGACY_BEARER = !SUPABASE_KEY.startsWith('sb_secret_');
 const REDIS_URL = (process.env.UPSTASH_REDIS_REST_URL || '').replace(/\/$/, '');
 const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || '';
 const configured = Boolean(SUPABASE_URL && SUPABASE_KEY && REDIS_URL && REDIS_TOKEN);
@@ -45,7 +46,7 @@ async function db(path, options = {}) {
   const response = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
     ...options,
     headers: {
-      apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json',
+      apikey: SUPABASE_KEY, ...(USE_LEGACY_BEARER ? { Authorization: `Bearer ${SUPABASE_KEY}` } : {}), 'Content-Type': 'application/json',
       Prefer: 'return=representation', ...(options.headers || {}),
     },
   });
